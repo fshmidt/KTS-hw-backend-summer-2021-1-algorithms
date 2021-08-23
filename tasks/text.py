@@ -6,8 +6,10 @@ __all__ = (
 
 
 def find_shortest_longest_word(text: str) -> tuple[Optional[str], Optional[str]]:
-    """
-    В переданном тексте вернуть слово имеющее наименьшую и наибольшую длину.
-    Если такого слова нет - вернуть None
-    """
-    raise NotImplementedError
+
+    optional = text.split()
+    min_word = min(optional, default = None, key = len)
+    max_word = max(optional, default = None, key = len)
+
+    optional = (min_word, max_word)
+    return (optional)

@@ -1,5 +1,5 @@
 from typing import Any
-
+import collections
 __all__ = (
     'Node',
     'Graph'
@@ -28,7 +28,26 @@ class Graph:
         self._root = root
 
     def dfs(self) -> list[Node]:
-        raise NotImplementedError
+        visited = set()
+        path = []
+        stack = [self._root]
+        while stack:
+            vertex = stack.pop()
+            if vertex not in visited:
+                visited.add(vertex)
+                path.append(vertex)
+                stack.extend(reversed(vertex.outbound))
+        return path
+
 
     def bfs(self) -> list[Node]:
-        raise NotImplementedError
+        visited, queue = list(), collections.deque([self._root])
+        visited.append(self._root)
+        while queue:
+            vertex = queue.popleft()
+            for neighbour in vertex.outbound:
+                if neighbour not in visited:
+                    visited.append(neighbour)
+                    queue.append(neighbour)
+        return visited
+
